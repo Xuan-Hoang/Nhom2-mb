@@ -199,102 +199,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Xử lý khi mục 1.2 được nhấn
                 },
               ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'MSI',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'Lenovo',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'Dell',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'Gigabyte',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'Samsung',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'LG',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'AOC',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
-              // ListTile(
-              //   title: Container(
-              //     padding: const EdgeInsets.only(left: 60),
-              //     child: const Text(
-              //       'Alienware',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Xử lý khi mục 1.2 được nhấn
-              //   },
-              // ),
             ],
           ),
           //Linh kiện PC
@@ -1125,10 +1029,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         //     mainAxisSpacing: 15,
                         //     crossAxisCount: 2,
                         //     childAspectRatio: 0.4,
+
                         ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             children: <Widget>[
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Container(
                             width: 200,
                             decoration: BoxDecoration(
@@ -1239,6 +1147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
+                          const SizedBox(
+                            width: 17,
+                          ),
                           Container(
                             width: 200,
                             decoration: BoxDecoration(
@@ -1346,6 +1257,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                          ),
+                          const SizedBox(
+                            width: 17,
                           ),
                           Container(
                             width: 200,
@@ -1540,6 +1454,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         children: <Widget>[
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Container(
                             width: 200,
                             decoration: BoxDecoration(
@@ -1651,6 +1568,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
+                          const SizedBox(
+                            width: 17,
+                          ),
                           Container(
                             width: 200,
                             decoration: BoxDecoration(
@@ -1761,6 +1681,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                          ),
+                          const SizedBox(
+                            width: 17,
                           ),
                           Container(
                             width: 200,
@@ -1956,6 +1879,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         children: <Widget>[
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Container(
                             width: 200,
                             decoration: BoxDecoration(
@@ -2065,6 +1991,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                          ),
+                          const SizedBox(
+                            width: 17,
                           ),
                           Container(
                             width: 200,
@@ -2181,6 +2110,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                          ),
+                          const SizedBox(
+                            width: 17,
                           ),
                           Container(
                             width: 200,

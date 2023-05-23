@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Forgotpassword(),
+                            builder: (context) => const Forgotpassword(),
                           ),
                         );
                       },
@@ -103,7 +103,7 @@ class _LoginState extends State<Login> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Register(),
+                            builder: (context) => const Register(),
                           ),
                         );
                       },
