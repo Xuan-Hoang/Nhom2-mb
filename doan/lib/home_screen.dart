@@ -1015,9 +1015,9 @@ class _HomeScreenState extends State<HomeScreen> {
               scrollDirection: Axis.horizontal,
               child: Center(
                 child: Container(
-                    alignment: AlignmentDirectional(0.0, 0.0),
-                    constraints: BoxConstraints(
-                        maxHeight: 400.0,
+                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    constraints: const BoxConstraints(
+                        maxHeight: 450.0,
                         maxWidth: 400.0,
                         minWidth: 150.0,
                         minHeight: 150.0),
@@ -1446,7 +1446,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                     alignment: const AlignmentDirectional(0.0, 0.0),
                     constraints: const BoxConstraints(
-                        maxHeight: 400.0,
+                        maxHeight: 450.0,
                         maxWidth: 400.0,
                         minWidth: 150.0,
                         minHeight: 150.0),
@@ -1871,7 +1871,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                     alignment: const AlignmentDirectional(0.0, 0.0),
                     constraints: const BoxConstraints(
-                        maxHeight: 400.0,
+                        maxHeight: 450.0,
                         maxWidth: 400.0,
                         minWidth: 150.0,
                         minHeight: 150.0),
