@@ -216,10 +216,11 @@ class _LinhKienPCState extends State<LinhKienPC> {
                     ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
+                        'https://cf.shopee.vn/file/7fc476452b0340860eb3cecfe75c58a1',
+                        fit: BoxFit.fill,
                         height: 150,
                       ),
                       Padding(
@@ -228,7 +229,7 @@ class _LinhKienPCState extends State<LinhKienPC> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Màn hình LG Gaming 27 inch ',
+                              'CPU Intel Core i3 12100F Box Chính Hãng',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -320,11 +321,12 @@ class _LinhKienPCState extends State<LinhKienPC> {
                     ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
+                        'https://product.hstatic.net/200000420363/product/i5_933c75c9cf494339818055d3d620242f_master.jpg',
                         height: 150,
+                        fit: BoxFit.fill,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -332,7 +334,7 @@ class _LinhKienPCState extends State<LinhKienPC> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Màn hình LG Gaming 27 inch ',
+                              'CPU Intel Core i5 12600K chính hãng',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -424,11 +426,12 @@ class _LinhKienPCState extends State<LinhKienPC> {
                     ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
+                        'https://product.hstatic.net/200000420363/product/cpu-intel-core-i7-13700-box-chinh-hang-1__1__d5b833344f2943e5bb4fa0e0241d32ff_master.jpg',
                         height: 150,
+                        fit: BoxFit.fill,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -436,7 +439,7 @@ class _LinhKienPCState extends State<LinhKienPC> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Màn hình LG Gaming 27 inch ',
+                              'CPU Intel Core I7 13700K ',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -528,11 +531,12 @@ class _LinhKienPCState extends State<LinhKienPC> {
                     ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
+                        'https://product.hstatic.net/200000420363/product/cpu-intel-core-i9-13900kf-box-chinh-hang-_bx8071513900kssrmbx_-2__1__9102f219858f486b9794156c6eca94a4_master.jpg',
                         height: 150,
+                        fit: BoxFit.fill,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -540,7 +544,7 @@ class _LinhKienPCState extends State<LinhKienPC> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Màn hình LG Gaming 27 inch ',
+                              'CPU Intel Core i9 13900K',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
