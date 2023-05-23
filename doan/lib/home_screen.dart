@@ -749,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       //body trang chủ
       body: ListView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           scrollDirection: Axis.vertical,
           children: [
             Container(
@@ -757,6 +757,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Danh mục',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -774,19 +777,33 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: 70,
-                          height: 70,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: Color.fromARGB(255, 239, 233, 233),
+                              color: const Color.fromARGB(255, 239, 233, 233),
                             ),
                             image: const DecorationImage(
-                                image: AssetImage('assets/images/manhinh.png'),
-                                fit: BoxFit.cover),
+                                image: AssetImage(
+                                  'assets/images/manhinh.png',
+                                ),
+                                fit: BoxFit.scaleDown),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Màn hình PC',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const Text('Màn hình PC'),
                     ],
                   ),
                   const SizedBox(
@@ -804,7 +821,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: 70,
-                          height: 70,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -812,11 +829,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             image: const DecorationImage(
                                 image: AssetImage('assets/images/card.jpg'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.scaleDown),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Linh kiện PC',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const Text('Linh kiện PC'),
                     ],
                   ),
                   const SizedBox(
@@ -834,7 +863,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: 70,
-                          height: 70,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -842,11 +871,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             image: const DecorationImage(
                                 image: AssetImage('assets/images/tainghe.jpg'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.scaleDown),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Tai nghe, loa',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const Text('Tai nghe, loa'),
                     ],
                   ),
                   const SizedBox(
@@ -864,7 +905,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: 70,
-                          height: 70,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -872,11 +913,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             image: const DecorationImage(
                                 image: AssetImage('assets/images/chuot.jpg'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.scaleDown),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Chuột, lót chuột',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const Text('Chuột,\n lót chuột'),
                     ],
                   ),
                   const SizedBox(
@@ -894,7 +947,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: 70,
-                          height: 70,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -902,11 +955,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             image: const DecorationImage(
                                 image: AssetImage('assets/images/banphim.jpg'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.scaleDown),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Bàn phím',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const Text('Bàn phím'),
                     ],
                   ),
                   const SizedBox(
@@ -924,7 +989,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: 70,
-                          height: 70,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -932,21 +997,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             image: const DecorationImage(
                                 image: AssetImage('assets/images/phukien.jpg'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.scaleDown),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Phụ kiện',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const Text('Phụ kiện'),
                     ],
-                  ),
-                  const SizedBox(
-                    width: 10,
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 10,
             ),
 
             //Màn hình PC
