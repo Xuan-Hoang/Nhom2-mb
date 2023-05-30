@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:demo/product_details.dart';
 
 class ManHinh extends StatefulWidget {
   const ManHinh({super.key});
@@ -227,11 +228,22 @@ class _ManHinhState extends State<ManHinh> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Màn hình LG Gaming 27 inch ',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ProductDetails(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Màn hình LG Gaming 27 inch ',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10),
