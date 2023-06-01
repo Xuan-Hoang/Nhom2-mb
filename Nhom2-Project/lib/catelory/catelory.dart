@@ -1,6 +1,7 @@
 import 'package:doan/headphones+speakers/headphones+speakers.dart';
 import 'package:doan/keyboard/keyboard.dart';
 import 'package:doan/mouse/mouse.dart';
+import 'package:doan/pc_components/components.dart';
 import 'package:doan/pc_components/pc_components.dart';
 import 'package:doan/pc_monitor/Screen.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,12 @@ class _DanhmucState extends State<Danhmuc> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ManHinh()));
+                        },
                         child: Container(
                             alignment: Alignment.center,
                             child: Container(
@@ -97,7 +103,12 @@ class _DanhmucState extends State<Danhmuc> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LinhKien()));
+                        },
                         child: Container(
                             alignment: Alignment.center,
                             child: Container(

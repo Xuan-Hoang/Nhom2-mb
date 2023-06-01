@@ -1,17 +1,18 @@
 import 'package:doan/header/header.dart';
-import 'package:doan/pc_monitor/catelory_monitor.dart';
-import 'package:doan/pc_monitor/screen_manufacturer.dart';
+import 'package:doan/mouse/mouse_manufacturer.dart';
+import 'package:doan/pc_components/catelory_components.dart';
 import 'package:doan/sorted_by.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ManHinh extends StatefulWidget {
-  const ManHinh({super.key});
+class LinhKien extends StatefulWidget {
+  const LinhKien({super.key});
 
   @override
-  State<ManHinh> createState() => _ManHinhState();
+  State<LinhKien> createState() => _LinhKienState();
 }
 
-class _ManHinhState extends State<ManHinh> {
+class _LinhKienState extends State<LinhKien> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,15 +37,15 @@ class _ManHinhState extends State<ManHinh> {
               height: 10,
             ),
 
-            //Màn hình PC
+            //Linh kiện PC
             Container(
               child: const Text(
                 'Màn hình PC',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            const HangManHinh(),
-            const DanhMucManHinh(),
+            const HangChuot(),
+            const DanhMucLinhKien(),
             const SizedBox(
               height: 30,
             ),

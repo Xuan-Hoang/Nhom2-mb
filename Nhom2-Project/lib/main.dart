@@ -1,3 +1,4 @@
+import 'package:doan/home_screen.dart';
 import 'package:doan/login/login.dart';
 import 'package:doan/utils/app_variables.dart';
 import 'package:doan/utils/prefs.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: HomeScreen(),
     );
   }
 }

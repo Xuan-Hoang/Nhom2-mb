@@ -1,6 +1,7 @@
 import 'package:doan/home_screen.dart';
 import 'package:doan/login/forgot_password.dart';
 import 'package:doan/login/register.dart';
+import 'package:doan/login/sigup_screen.dart';
 import 'package:doan/ui/login/login_view_model.dart';
 import 'package:doan/ui/major/major_screen.dart';
 import 'package:doan/utils/app_variables.dart';
@@ -156,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const Register(),
+                                builder: (context) => SigupScreen(),
                               ));
                         },
                         child: const Text('Đăng ký',
