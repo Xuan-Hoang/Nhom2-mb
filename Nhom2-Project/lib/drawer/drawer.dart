@@ -587,40 +587,19 @@ class _Drawer_appState extends State<Drawer_app> {
                 style: TextStyle(fontSize: 18),
               ),
               onTap: () {}),
-          ExpansionTile(
-            leading: const IconTheme(
-              data: IconThemeData(size: 23),
-              child: Icon(Icons.car_rental_outlined),
-            ),
-            title: const Text('Chính sách vận chuyển',
-                style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Nội thành TPHCM & Hà Nội',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
+          ListTile(
+              leading: const IconTheme(
+                data: IconThemeData(size: 23),
+                child: Icon(Icons.car_rental_outlined),
               ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Ngoại thành',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
-          ),
+              title: const Text('Chính sách vận chuyển',
+                  style: TextStyle(fontSize: 17)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const VanChuyen()),
+                );
+              }),
           ListTile(
               leading: const IconTheme(
                 data: IconThemeData(size: 23),
