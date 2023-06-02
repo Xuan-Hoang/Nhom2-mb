@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       _formKey.currentState!.save();
       if (_formKey.currentState!.validate()) {
         var formValue = _formKey.currentState!.value;
-        final username = formValue['email'].toString();
+        final username = formValue['username'].toString();
         final password = formValue['password'].toString();
         final result = await model.login(username, password);
         if (result != null) {
@@ -41,8 +41,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               (route) => false);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Email hoặc mật khẩu không đúng!')));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Tên tài khoản hoặc mật khẩu không đúng!')));
         }
       }
     }
@@ -78,9 +78,10 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                         FormBuilderTextField(
-                          name: 'email',
+                          name: 'username',
                           decoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Email'),
+                              border: OutlineInputBorder(),
+                              labelText: 'Tên tài khoản'),
                           validator: FormBuilderValidators.required(),
                           keyboardType: TextInputType.text,
                         ),

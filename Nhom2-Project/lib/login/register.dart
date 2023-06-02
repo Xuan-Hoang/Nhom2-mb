@@ -68,7 +68,7 @@ class _RegisterState extends State<Register> {
                       color: Colors.red,
                     ),
                     border: OutlineInputBorder(),
-                    labelText: 'Email',
+                    labelText: 'Tên tài khoản',
                   ),
                 ),
                 const SizedBox(height: 20),
