@@ -17,7 +17,7 @@ class _BaoHangState extends State<BaoHanh> {
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset(
-                'assets/images/2.jpg',
+                'assets/images/logoBaoHanh.jpg',
                 fit: BoxFit.cover,
               ),
               centerTitle: true,

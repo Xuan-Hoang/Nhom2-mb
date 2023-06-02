@@ -587,7 +587,12 @@ class _Drawer_appState extends State<Drawer_app> {
                 'Chính sách bảo hành',
                 style: TextStyle(fontSize: 18),
               ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BaoHanh()),
+                );
+              }),
           ListTile(
               leading: const IconTheme(
                 data: IconThemeData(size: 23),
