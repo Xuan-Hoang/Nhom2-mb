@@ -1,175 +1,133 @@
-import 'package:doan/home_screen.dart';
-import 'package:doan/login/forgot_password.dart';
-import 'package:doan/login/register.dart';
-import 'package:doan/login/sigup_screen.dart';
-import 'package:doan/ui/login/login_view_model.dart';
-import 'package:doan/ui/major/major_screen.dart';
-import 'package:doan/utils/app_variables.dart';
-import 'package:doan/utils/prefs.dart';
+import 'package:doan/com/my_button.dart';
+import 'package:doan/com/my_textfield.dart';
+import 'package:doan/utils/color.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class LoginPage extends StatefulWidget {
+  final Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
+
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+
+  void signInButton() async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    // try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailTextController.text,
+        password: _passwordTextController.text,
+      );
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      // WRONG EMAIL
+      showErrorMessage(e.code);
+    }
+  }
+
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Center(
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormBuilderState>();
-    final loginViewModel = LoginViewModel();
-
-    void loginAction(var context, LoginViewModel model) async {
-      _formKey.currentState!.save();
-      if (_formKey.currentState!.validate()) {
-        var formValue = _formKey.currentState!.value;
-        final username = formValue['username'].toString();
-        final password = formValue['password'].toString();
-        final result = await model.login(username, password);
-        if (result != null) {
-          AppVariables.userInfo = result;
-          Prefs.setUsername(username);
-          Prefs.setPassword(password);
-
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeScreen(),
-              ),
-              (route) => false);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Tên tài khoản hoặc mật khẩu không đúng!')));
-        }
-      }
-    }
-
-    return ScopedModel(
-      model: loginViewModel,
-      child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-          constraints: const BoxConstraints.expand(),
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/hinhnenlogin.jpg'),
-                  fit: BoxFit.cover,
-                  opacity: 0.7)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                child: Text(
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          hexStringToColor('CB2B93'),
+          hexStringToColor('9546C4'),
+          hexStringToColor('5E61F4'),
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                20, MediaQuery.of(context).size.height * 0.6, 20, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
                   'LURGEAR',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                child: FormBuilder(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        FormBuilderTextField(
-                          name: 'username',
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Tên tài khoản'),
-                          validator: FormBuilderValidators.required(),
-                          keyboardType: TextInputType.text,
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        FormBuilderTextField(
-                          name: 'password',
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Mật khẩu'),
-                          validator: FormBuilderValidators.required(),
-                          keyboardType: TextInputType.visiblePassword,
-                        ),
-                      ],
+                const SizedBox(
+                  height: 30,
+                ),
+                MyTextField(
+                    controller: _emailTextController,
+                    hintText: 'Tên tài khoản',
+                    obscureText: false,
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                      color: Colors.white70,
                     )),
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-              //   child: Stack(
-              //     alignment: AlignmentDirectional.centerEnd,
-              //     children: const [
-              //       TextField(
-              //         style: TextStyle(fontSize: 18, color: Colors.black),
-              //         obscureText: true,
-              //         decoration: InputDecoration(
-              //           labelText: 'Password',
-              //           labelStyle:
-              //               TextStyle(color: Colors.black, fontSize: 18),
-              //         ),
-              //       ),
-              //       Text(
-              //         'Show',
-              //         style: TextStyle(color: Colors.red, fontSize: 18),
-              //       )
-              //     ],
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                      onPressed: () => loginAction(context, loginViewModel),
-                      child: const Text(
-                        'Đăng nhập',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      )),
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              Container(
-                height: 50,
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Forgotpassword(),
-                              ));
-                        },
+                MyTextField(
+                    controller: _passwordTextController,
+                    hintText: 'Mật khẩu',
+                    obscureText: true,
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: Colors.white70,
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                MyButton(
+                  text: 'Đăng nhập',
+                  onTap: signInButton,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Quên mật khẩu ?'),
+                      GestureDetector(
+                        onTap: widget.onTap,
                         child: const Text(
-                          'Quên mật khẩu?',
-                          style: TextStyle(color: Colors.black),
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SigupScreen(),
-                              ));
-                        },
-                        child: const Text('Đăng ký',
-                            style: TextStyle(color: Colors.black))),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-            ],
+                          'Đăng ký',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ]),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:doan/header/header.dart';
 import 'package:doan/mouse/mouse_manufacturer.dart';
 import 'package:doan/pc_components/catelory_components.dart';
-import 'package:doan/sorted_by.dart';
+import 'package:doan/catelory/sorted_by.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
