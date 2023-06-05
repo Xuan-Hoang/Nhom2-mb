@@ -1,10 +1,13 @@
-import 'package:doan/home_screen.dart';
-import 'package:doan/login/login.dart';
-import 'package:doan/utils/app_variables.dart';
-import 'package:doan/utils/prefs.dart';
+import 'package:doan/firebase_options.dart';
+import 'package:doan/login/auth_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -13,15 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Prefs.init();
-    AppVariables.init();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: const AuthPage(),
     );
   }
 }

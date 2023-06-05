@@ -4,6 +4,7 @@ import 'package:doan/item/Tranfer.dart';
 import 'package:doan/login/login.dart';
 import 'package:doan/pc_monitor/Screen.dart';
 import 'package:doan/login/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Drawer_app extends StatefulWidget {
@@ -14,6 +15,12 @@ class Drawer_app extends StatefulWidget {
 }
 
 class _Drawer_appState extends State<Drawer_app> {
+  final user = FirebaseAuth.instance.currentUser!;
+
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -25,21 +32,33 @@ class _Drawer_appState extends State<Drawer_app> {
             child: Column(
               children: [
                 Center(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.purple,
-                      gradient: LinearGradient(
-                        colors: [Colors.red, Colors.cyan],
+                    child: Column(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.purple,
+                        gradient: LinearGradient(
+                          colors: [Colors.red, Colors.cyan],
+                        ),
+                      ),
+                      child: const Text(
+                        'LURGEAR',
+                        textScaleFactor: 2.5,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    child: const Text(
-                      'LURGEAR',
-                      textScaleFactor: 2.5,
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 16,
                     ),
-                  ),
-                ),
+                    Text(
+                      user.email!,
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                    IconButton(
+                        onPressed: signUserOut, icon: const Icon(Icons.logout))
+                  ],
+                )),
               ],
             ),
           ),

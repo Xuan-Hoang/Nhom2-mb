@@ -1,7 +1,7 @@
 import 'package:doan/header/header.dart';
 import 'package:doan/pc_monitor/catelory_monitor.dart';
 import 'package:doan/pc_monitor/screen_manufacturer.dart';
-import 'package:doan/sorted_by.dart';
+import 'package:doan/catelory/sorted_by.dart';
 import 'package:flutter/material.dart';
 
 class ManHinh extends StatefulWidget {
