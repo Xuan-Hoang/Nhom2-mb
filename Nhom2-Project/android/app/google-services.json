@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "583101514183",
+    "project_id": "apilogin-20abe",
+    "storage_bucket": "apilogin-20abe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583101514183:android:6ba3b37cd681d7cae559e2",
+        "android_client_info": {
+          "package_name": "com.example.doan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583101514183-kjb041cvq20h42lptoa1huui40q7k55i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuXF-TDObAD51qpMsxut9t9QEE5szEYK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583101514183-kjb041cvq20h42lptoa1huui40q7k55i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
