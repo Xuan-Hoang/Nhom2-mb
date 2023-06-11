@@ -1,4 +1,5 @@
 import 'package:doan/header/header.dart';
+import 'package:doan/pc_monitor/Screen_PC.dart';
 import 'package:doan/pc_monitor/catelory_monitor.dart';
 import 'package:doan/pc_monitor/screen_manufacturer.dart';
 import 'package:doan/catelory/sorted_by.dart';
@@ -44,7 +45,7 @@ class _ManHinhState extends State<ManHinh> {
               ),
             ),
             const HangManHinh(),
-            const DanhMucManHinh(),
+            ProductServicePage1(),
             const SizedBox(
               height: 30,
             ),
