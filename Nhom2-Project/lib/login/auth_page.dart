@@ -1,5 +1,5 @@
 import 'package:doan/home_screen.dart';
-import 'package:doan/login/login_or_register.dart';
+import 'package:doan/login/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class _AuthPageState extends State<AuthPage> {
           if (snapshot.hasData) {
             return HomeScreen();
           } else {
-            return const LoginOrRegister();
+            return const LoginPage();
           }
         },
       ),

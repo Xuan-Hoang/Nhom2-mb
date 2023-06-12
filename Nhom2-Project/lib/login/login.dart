@@ -1,12 +1,13 @@
 import 'package:doan/com/my_button.dart';
 import 'package:doan/com/my_textfield.dart';
+import 'package:doan/login/forgot_password.dart';
+import 'package:doan/login/register.dart';
 import 'package:doan/utils/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+                20, MediaQuery.of(context).size.height * 0.6, 20, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 MyTextField(
                     controller: _emailTextController,
-                    hintText: 'Tên tài khoản',
+                    hintText: 'Email',
                     obscureText: false,
                     prefixIcon: const Icon(
                       Icons.person_outline,
@@ -116,9 +117,36 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Quên mật khẩu ?'),
                       GestureDetector(
-                        onTap: widget.onTap,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const Forgotpassword();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Quên mật khẩu',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const Register();
+                              },
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Đăng ký',
                           style: TextStyle(

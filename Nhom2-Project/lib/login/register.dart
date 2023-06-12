@@ -1,13 +1,11 @@
 import 'package:doan/com/my_button.dart';
 import 'package:doan/com/my_textfield.dart';
-import 'package:doan/reusable_widgets/reusable_widget.dart';
 import 'package:doan/utils/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
-  final Function()? onTap;
-  const Register({super.key, required this.onTap});
+  const Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -67,15 +65,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text(
-          'Đăng ký',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: AppBar(),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -93,9 +83,17 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  'Vui lòng điền Email, mật khẩu, nhập lại mật khẩu tại đây',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 MyTextField(
                     controller: _emailTextController,
-                    hintText: 'Tên tài khoản',
+                    hintText: 'Email',
                     obscureText: false,
                     prefixIcon: const Icon(
                       Icons.person_outline,
@@ -130,16 +128,6 @@ class _RegisterState extends State<Register> {
                   text: 'Đăng ký',
                   onTap: signUpButton,
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  GestureDetector(
-                    onTap: widget.onTap,
-                    child: const Text(
-                      'Đăng nhập',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ]),
               ],
             ),
           ),
