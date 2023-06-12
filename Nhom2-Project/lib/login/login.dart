@@ -1,8 +1,9 @@
-import 'package:doan/com/my_button.dart';
-import 'package:doan/com/my_textfield.dart';
-import 'package:doan/utils/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/com/my_button.dart';
+import 'package:flutter_application_2/com/my_textfield.dart';
+import 'package:flutter_application_2/login/forgot_password.dart';
+import 'package:flutter_application_2/utils/color.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -116,7 +117,24 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Quên mật khẩu ?'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const Forgotpassword();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Forgot Password',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       GestureDetector(
                         onTap: widget.onTap,
                         child: const Text(
