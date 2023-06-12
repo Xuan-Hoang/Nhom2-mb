@@ -1,5 +1,6 @@
-import 'package:doan/pc_screen/Screen_PC.dart';
-import 'package:doan/pc_screen/screen_manufacturer.dart';
+import 'package:doan/pc_monitor/Screen_PC.dart';
+import 'package:doan/pc_monitor/catelory_monitor.dart';
+import 'package:doan/pc_monitor/screen_manufacturer.dart';
 import 'package:flutter/material.dart';
 import 'package:doan/catelory/catelory.dart';
 import 'package:doan/drawer/drawer.dart';
@@ -15,9 +16,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Header(),
+        title: const Header(),
       ),
-      drawer: Drawer_app(),
+      drawer: const Drawer_app(),
       body: ListView(
         children: [
           const Padding(
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          Danhmuc(),
+          const Danhmuc(),
           const SizedBox(
             height: 10,
           ),
@@ -58,8 +59,20 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          const HangChuot(),
+          MouseServicePage(),
+          //ban phim
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Bàn phím',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           const HangBanPhim(),
-          MouseServicePage()
         ],
       ),
     );

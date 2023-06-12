@@ -1,7 +1,8 @@
+import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  const ProductDetails({super.key, required Product product, required Card cart});
 
   @override
   Widget build(BuildContext context) {
