@@ -2,42 +2,38 @@ import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
 import 'package:doan/item/cart_item.dart';
 import 'package:doan/item/cart_screen.dart';
+import 'package:doan/product_api/accessories_pc_product_detail.dart';
 import 'package:doan/product_api/comphonent_pc_product_detail.dart';
 import 'package:doan/product_api/keyboard_pc_product_detail.dart';
 import 'package:intl/intl.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
-class KeyboardServicePage1 extends StatefulWidget {
+class AccessorieServicePage extends StatefulWidget {
   @override
-  _KeyboardServicePage1State createState() => _KeyboardServicePage1State();
+  _AccessorieServicePageState createState() => _AccessorieServicePageState();
 }
 
-class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
+class _AccessorieServicePageState extends State<AccessorieServicePage> {
   final ApiService _apiService = ApiService();
-  late Future<List<ProductKeyboard>> _productsFuture;
+  late Future<List<ProductAccessorie>> _productsFuture;
 
   @override
   void initState() {
     super.initState();
-    _productsFuture = _apiService.getProducts5();
+    _productsFuture = _apiService.getProducts6();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ProductKeyboard>>(
+    return FutureBuilder<List<ProductAccessorie>>(
       future: _productsFuture,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final products = snapshot.data!;
-          return Container(
-            height: 650,
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 2,
-              childAspectRatio: 0.4,
-              scrollDirection: Axis.vertical,
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: products
                   .map((product) => ProductCard(
                         product: product,
@@ -60,7 +56,7 @@ class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
 }
 
 class ProductCard extends StatefulWidget {
-  final ProductKeyboard product;
+  final ProductAccessorie product;
   final Cart cart;
 
   const ProductCard({
@@ -90,7 +86,7 @@ class _ProductCardState extends State<ProductCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => KeyboardPcProductDetails(
+            builder: (context) => AccessoriePcProductDetails(
               product: widget.product,
               cart: widget.cart,
             ),
@@ -106,7 +102,7 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 5,
+                horizontal: 7,
                 // vertical: 15,
               ),
               child: Container(

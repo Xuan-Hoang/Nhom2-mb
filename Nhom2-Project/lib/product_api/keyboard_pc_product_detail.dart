@@ -1,21 +1,29 @@
+import 'package:doan/header/header.dart';
+import 'package:doan/item/cart.dart';
+import 'package:doan/item/cart_item.dart';
+import 'package:doan/item/cart_screen.dart';
+import 'package:doan/pc_components/component_pc.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
 
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key, required Product product, required Card cart});
+class KeyboardPcProductDetails extends StatelessWidget {
+  final ProductKeyboard product;
+  final Cart cart;
+  const KeyboardPcProductDetails({required this.product, required this.cart});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Detail'),
+        title:const Header(),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.network(
-              'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
+              product.image,
               height: 150,
             ),
             Padding(
@@ -23,21 +31,21 @@ class ProductDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Màn hình LG Gaming 27 inch ',
-                    style: TextStyle(
+                  Text(
+                    product.name,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                 const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        '5.890.000 ₫',
-                        style: TextStyle(
-                          fontSize: 20,
+                      Text(
+                        '${formatCurrency.format(product.price)}',
+                        style: const TextStyle(
+                          fontSize: 17.5,
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
@@ -46,14 +54,14 @@ class ProductDetails extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.favorite_border,
                               color: Colors.red,
                             ),
                           ),
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.share,
                               color: Colors.grey,
                             ),
@@ -62,7 +70,7 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     children: const [
                       Icon(Icons.star, color: Colors.yellow),
@@ -72,41 +80,41 @@ class ProductDetails extends StatelessWidget {
                       Icon(Icons.star, color: Colors.yellow),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Thông Tin Chung',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                 const SizedBox(height: 10),
                   DataTable(
-                    columns: const <DataColumn>[
-                      DataColumn(
-                        label: Text('Kích thước màn hình'),
+                    columns: <DataColumn>[
+                      const DataColumn(
+                        label: Text('Mắt đọc'),
                       ),
                       DataColumn(
-                        label: Text('27 inch'),
+                        label: Text(product.size),
                       ),
                     ],
-                    rows: const <DataRow>[
+                    rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Tỉ lệ khung hình	')),
-                          DataCell(Text('16:9')),
+                        const  DataCell(Text('Điểm ảnh trên 1 inch (DPI)')),
+                          DataCell(Text(product.DPI)),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Tấm Nền')),
-                          DataCell(Text('IPS')),
+                        const  DataCell(Text('Tần số phản hồi')),
+                          DataCell(Text(product.hz)),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Tần số quét')),
-                          DataCell(Text('165Hz')),
+                         const DataCell(Text('Kết nối')),
+                          DataCell(Text(product.connect)),
                         ],
                       ),
                     ],
@@ -119,37 +127,39 @@ class ProductDetails extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  const Text(
-                    ' Màn hình Màn hình LG Gaming rộng 27 inch, sử dụng tấm nền IPS độ phân giải Full HD (1920x1080) với tốc độ làm mới 165Hz cực nhanh. Màn hình được thiết kế dành cho các game thủ chuyên nghiệp và những người chơi muốn hòa mình vào các trò chơi thực sự. Không chỉ vậy, công nghệ ELMB độc quyền cho phép phản hồi trong vòng 1ms MPRT và sự kết hợp của công nghệ đồng bộ hóa thích ứng (FreeSync Premium) sẽ mang đến cho người dùng màn hình mượt mà và trải nghiệm chơi game tuyệt vời',
-                    style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                  Text(
+                    product.description,
+                    style: const TextStyle(
+                        fontSize: 16, fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.add_shopping_cart),
-                        label: Text('Add to Cart'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        onPressed: () {
+                          final cartItem = CartItem(
+                            id: product.id,
+                            productName: product.name,
+                            productPrice: product.price,
+                            quantity: 1,
+                          );
+                          cart.addCartItem(cartItem);
+                        },
+                        icon: const Icon(Icons.shopping_cart),
+                        label: const Text('Thêm vào giỏ hàng'),
                       ),
                       ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.shopping_bag),
-                        label: Text('Buy Now'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CartPage(cart: cart),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.shopping_basket),
+                        label: const Text('Xem giỏ hàng'),
                       ),
                     ],
                   ),

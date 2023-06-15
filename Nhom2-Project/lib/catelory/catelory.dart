@@ -1,9 +1,15 @@
-import 'package:doan/headphones+speakers/headphones+speakers.dart';
+import 'package:doan/accessories/list_accessorie_pc.dart';
+import 'package:doan/headphones_speakers/headphones_speakers_pc.dart';
+import 'package:doan/headphones_speakers/list_headphone_speaker.dart';
 import 'package:doan/keyboard/keyboard.dart';
+import 'package:doan/keyboard/list_keyboard_pc.dart';
+import 'package:doan/mouse/list_mouse_pc.dart';
 import 'package:doan/mouse/mouse.dart';
 import 'package:doan/pc_components/components.dart';
-import 'package:doan/pc_components/pc_components.dart';
-import 'package:doan/pc_monitor/Screen.dart';
+import 'package:doan/pc_components/list_component_pc.dart';
+import 'package:doan/pc_monitor/list_monitor_pc.dart';
+import 'package:doan/pc_monitor/monitor.dart';
+// import 'package:doan/pc_monitor/monitor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -53,7 +59,8 @@ class _DanhmucState extends State<Danhmuc> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ManHinh()));
+                                  builder: (context) =>
+                                      ListMonitorServicePage()));
                         },
                         child: Container(
                             alignment: Alignment.center,
@@ -107,7 +114,8 @@ class _DanhmucState extends State<Danhmuc> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LinhKien()));
+                                  builder: (context) =>
+                                      ListCompinentServicePage()));
                         },
                         child: Container(
                             alignment: Alignment.center,
@@ -157,7 +165,13 @@ class _DanhmucState extends State<Danhmuc> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListHeadphoneSpeakerServicePage()));
+                        },
                         child: Container(
                             alignment: Alignment.center,
                             child: Container(
@@ -206,7 +220,13 @@ class _DanhmucState extends State<Danhmuc> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListMouseServicePage()));
+                        },
                         child: Container(
                             alignment: Alignment.center,
                             child: Container(
@@ -255,7 +275,13 @@ class _DanhmucState extends State<Danhmuc> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListKeyboardServicePage()));
+                        },
                         child: Container(
                             alignment: Alignment.center,
                             child: Container(
@@ -304,7 +330,13 @@ class _DanhmucState extends State<Danhmuc> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListAccessorieServicePage()));
+                        },
                         child: Container(
                             alignment: Alignment.center,
                             child: Container(

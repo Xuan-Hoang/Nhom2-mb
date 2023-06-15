@@ -6,7 +6,7 @@ import 'package:doan/item/cart_item.dart';
 class CartPage extends StatefulWidget {
   final Cart cart;
 
-  const CartPage({required this.cart});
+   CartPage({required this.cart});
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -122,7 +122,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: Text('Giỏ hàng'),
       ),
       body: ListView.builder(
         itemCount: cartItems.length,

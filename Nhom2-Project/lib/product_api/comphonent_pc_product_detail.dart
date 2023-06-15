@@ -2,20 +2,21 @@ import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
 import 'package:doan/item/cart_item.dart';
 import 'package:doan/item/cart_screen.dart';
+import 'package:doan/pc_components/component_pc.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
 
-class ProductDetails extends StatelessWidget {
-  final Product product;
+class ComponentPcProductDetails extends StatelessWidget {
+  final ProductComponent product;
   final Cart cart;
-
-  const ProductDetails({required this.product, required this.cart});
+  const ComponentPcProductDetails({required this.product, required this.cart});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Header(),
+        title:const Header(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -37,14 +38,14 @@ class ProductDetails extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                 const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${product.price}',
+                        '${formatCurrency.format(product.price)}',
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 17.5,
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
@@ -87,11 +88,11 @@ class ProductDetails extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                const  SizedBox(height: 10),
                   DataTable(
                     columns: <DataColumn>[
                       const DataColumn(
-                        label: Text('Kích thước màn hình'),
+                        label: Text('Mắt đọc'),
                       ),
                       DataColumn(
                         label: Text(product.size),
@@ -100,20 +101,20 @@ class ProductDetails extends StatelessWidget {
                     rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Tỉ lệ khung hình')),
-                          DataCell(Text(product.ratio)),
+                        const  DataCell(Text('Điểm ảnh trên 1 inch (DPI)')),
+                          DataCell(Text(product.DPI)),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Tấm Nền')),
-                          DataCell(Text(product.panels)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('Tần số quét')),
+                        const  DataCell(Text('Tần số phản hồi')),
                           DataCell(Text(product.hz)),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                         const DataCell(Text('Kết nối')),
+                          DataCell(Text(product.connect)),
                         ],
                       ),
                     ],

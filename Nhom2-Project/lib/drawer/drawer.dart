@@ -1,9 +1,17 @@
+import 'package:doan/accessories/list_accessorie_pc.dart';
+import 'package:doan/headphones_speakers/list_headphone_speaker.dart';
 import 'package:doan/item/Guarantee.dart';
 import 'package:doan/item/Storge.dart';
 import 'package:doan/item/Tranfer.dart';
+import 'package:doan/item/cart.dart';
+import 'package:doan/item/cart_screen.dart';
+import 'package:doan/keyboard/list_keyboard_pc.dart';
 import 'package:doan/login/login.dart';
-import 'package:doan/pc_monitor/Screen.dart';
 import 'package:doan/login/register.dart';
+import 'package:doan/mouse/list_mouse_pc.dart';
+import 'package:doan/pc_components/list_component_pc.dart';
+import 'package:doan/pc_monitor/list_monitor_pc.dart';
+import 'package:doan/pc_monitor/monitor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -69,391 +77,89 @@ class _Drawer_appState extends State<Drawer_app> {
           ),
 
           //Màn hình
-          ExpansionTile(
+          ListTile(
             leading: const IconTheme(
               data: IconThemeData(size: 23),
               child: Icon(Icons.computer),
             ),
             title: const Text('Màn hình', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Asus',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const ManHinh()));
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Acer',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ListMonitorServicePage()));
+            },
           ),
           //Linh kiện PC
-          ExpansionTile(
+          ListTile(
             leading: const IconTheme(
               data: IconThemeData(size: 23),
               child: Icon(Icons.laptop_chromebook),
             ),
             title: const Text('Linh kiện PC', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'VGA - Card màn hình',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'CPU - Bọo vi xử lý',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bo mạch chủ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Ram - Bộ nhớ trong',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Lưu trữ SSD - HDD',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Case - Vỏ máy tính',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'PSU - Nguồn máy tính',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Tản nhiệt - Fan RGB',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ListCompinentServicePage()));
+            },
           ),
           //tai nghe + loa
-          ExpansionTile(
+          ListTile(
             leading: const IconTheme(
               data: IconThemeData(size: 23),
               child: Icon(Icons.headset),
             ),
             title: const Text('Tai Nghe + Loa', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Tai Nghe Chụp Tai',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Tai Nghe Điện Thoại',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Tai Nghe Bluetooth',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Loa',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Loa Bluetooth',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ListHeadphoneSpeakerServicePage()));
+            },
           ),
           // chuột
-          ExpansionTile(
+          ListTile(
             leading: const IconTheme(
               data: IconThemeData(size: 23),
               child: Icon(Icons.mouse),
             ),
             title:
                 const Text('Chuột + Lót Chuột', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Chuột Gaming',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Chuột Văn Phòng',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Chuột Bluetooth',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Lót Chuột',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ListMouseServicePage()));
+            },
           ),
           //ban phim-----------------------------------------
-          ExpansionTile(
+          ListTile(
             leading: const IconTheme(
               data: IconThemeData(size: 23),
               child: Icon(Icons.keyboard),
             ),
             title: const Text('Bàn phím', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bàn Phím Cơ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bàn Phím Giả Cơ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bàn Phím Văn Phòng',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ListKeyboardServicePage()));
+            },
           ),
           //Phụ Kiện-----------------------------------------
-          ExpansionTile(
+          ListTile(
             leading: const IconTheme(
               data: IconThemeData(size: 23),
               child: Icon(Icons.usb),
             ),
             title: const Text('Phụ kiện', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Microphone',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Webcam',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'SoundCard',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Tản Nhiệt Laptop',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'SSD-HDD',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-            ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ListAccessorieServicePage()));
+            },
           ),
           //information------------------------------
           const SizedBox(height: 10),
@@ -564,10 +270,11 @@ class _Drawer_appState extends State<Drawer_app> {
                 style: TextStyle(fontSize: 18),
               ),
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) =>  GioHang()),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CartPage(cart: Cart())),
+                );
               }),
           const SizedBox(height: 10),
           Container(

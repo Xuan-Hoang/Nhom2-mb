@@ -2,30 +2,31 @@ import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
 import 'package:doan/item/cart_item.dart';
 import 'package:doan/item/cart_screen.dart';
+import 'package:doan/product_api/accessories_pc_product_detail.dart';
 import 'package:doan/product_api/comphonent_pc_product_detail.dart';
 import 'package:doan/product_api/keyboard_pc_product_detail.dart';
 import 'package:intl/intl.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
-class KeyboardServicePage1 extends StatefulWidget {
+class AccessorieServicePage1 extends StatefulWidget {
   @override
-  _KeyboardServicePage1State createState() => _KeyboardServicePage1State();
+  _AccessorieServicePage1State createState() => _AccessorieServicePage1State();
 }
 
-class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
+class _AccessorieServicePage1State extends State<AccessorieServicePage1> {
   final ApiService _apiService = ApiService();
-  late Future<List<ProductKeyboard>> _productsFuture;
+  late Future<List<ProductAccessorie>> _productsFuture;
 
   @override
   void initState() {
     super.initState();
-    _productsFuture = _apiService.getProducts5();
+    _productsFuture = _apiService.getProducts6();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ProductKeyboard>>(
+    return FutureBuilder<List<ProductAccessorie>>(
       future: _productsFuture,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -60,7 +61,7 @@ class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
 }
 
 class ProductCard extends StatefulWidget {
-  final ProductKeyboard product;
+  final ProductAccessorie product;
   final Cart cart;
 
   const ProductCard({
@@ -90,7 +91,7 @@ class _ProductCardState extends State<ProductCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => KeyboardPcProductDetails(
+            builder: (context) => AccessoriePcProductDetails(
               product: widget.product,
               cart: widget.cart,
             ),

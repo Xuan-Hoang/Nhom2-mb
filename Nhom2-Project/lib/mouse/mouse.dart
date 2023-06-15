@@ -1,626 +1,230 @@
+import 'package:doan/item/cart.dart';
+
+import 'package:doan/product_api/mouse_pc_product_detail.dart';
+import 'package:intl/intl.dart';
+import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
-class Chuot extends StatefulWidget {
-  const Chuot({super.key});
-
+class MouseServicePage1 extends StatefulWidget {
   @override
-  State<Chuot> createState() => _ChuotState();
+  _MouseServicePage1State createState() => _MouseServicePage1State();
 }
 
-class _ChuotState extends State<Chuot> {
-  String _searchText = '';
-  bool _isFavorite = false;
+class _MouseServicePage1State extends State<MouseServicePage1> {
+  final ApiService _apiService = ApiService();
+  late Future<List<ProductMouse>> _productsFuture;
 
-  void _toggleFavorite() {
+  @override
+  void initState() {
+    super.initState();
+    _productsFuture = _apiService.getProducts2();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<ProductMouse>>(
+      future: _productsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final products = snapshot.data!;
+
+          return Container(
+            height: 650,
+            child: GridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 2,
+              childAspectRatio: 0.4,
+              scrollDirection: Axis.vertical,
+              children: products
+                  .map((
+                    product,
+                  ) =>
+                      ProductCard(
+                        product: product,
+                        cart: Cart(),
+                      ))
+                  .toList(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Failed to load products'),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+}
+
+class ProductCard extends StatefulWidget {
+  final ProductMouse product;
+  final Cart cart;
+  const ProductCard({required this.product, required this.cart});
+
+  @override
+  _ProductCardState createState() => _ProductCardState();
+}
+
+final formatCurrency = NumberFormat.decimalPattern('vi');
+
+class _ProductCardState extends State<ProductCard> {
+  bool isFavorite = false;
+
+  void toggleFavorite() {
     setState(() {
-      _isFavorite = !_isFavorite;
+      isFavorite = !isFavorite;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MousePcProductDetails(
+              product: widget.product,
+              cart: widget.cart,
+            ),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 7,
+        ),
+        child: Row(
           children: [
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Tìm kiếm sản phẩm',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  prefixIcon: const Icon(Icons.search),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 0,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 5,
+                // vertical: 15,
+              ),
+              child: Container(
+                width: 170,
+                height: 450,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: Image.network(
+                          widget.product.image,
+                          // width: double.infinity,
+                          height: 130,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          ' ${widget.product.name}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '${widget.product.price} ₫',
+                              style: const TextStyle(
+                                fontSize: 17.5,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.red,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Text(
+                              'Giao hàng miễn phí',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.star, color: Colors.yellow),
+                          Icon(Icons.star, color: Colors.yellow),
+                          Icon(Icons.star, color: Colors.yellow),
+                          Icon(Icons.star, color: Colors.yellow),
+                          Icon(Icons.star, color: Colors.yellow),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: toggleFavorite,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                          const Text(
+                            'Yêu Thích',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 10),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart),
-                  onPressed: () {
-                    // xử lý khi nhấn vào giỏ hàng
-                  },
-                ),
-              ],
-            ),
           ],
         ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.only(left: 17),
-            child: const Text(
-              'Chọn theo tiêu chí',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-            ),
-            child: Row(
-              children: [
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: Theme(
-                    data: ThemeData(
-                      accentColor: Colors.grey[600],
-                      unselectedWidgetColor: Colors.grey[600],
-                    ),
-                    child: ExpansionTile(
-                      title: Row(
-                        children: const [
-                          Icon(Icons.check_circle, color: Colors.green),
-                          SizedBox(width: 8.0),
-                          Text('Tình Trạng'),
-                        ],
-                      ),
-                      children: const [
-                        // các widget con
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Theme(
-                    data: ThemeData(
-                      accentColor: Colors.grey[600],
-                      unselectedWidgetColor: Colors.grey[600],
-                    ),
-                    child: ExpansionTile(
-                      title: Row(
-                        children: const [
-                          Icon(Icons.monetization_on_outlined,
-                              color: Colors.green),
-                          SizedBox(width: 8.0),
-                          Text('Giá Cả'),
-                        ],
-                      ),
-                      children: const [
-                        // các widget con
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.only(left: 17),
-            child: const Text(
-              'Sắp xếp theo',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(
-            height: 17,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 17,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.arrow_downward,
-                        size: 17,
-                      ),
-                      label: const Text('Giá Cao - Thấp')),
-                ),
-                const SizedBox(
-                  width: 17,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.arrow_upward,
-                        size: 17,
-                      ),
-                      label: const Text('Giá Thấp - Cao')),
-                ),
-                const SizedBox(
-                  width: 17,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.percent),
-                      label: const Text('Khuyến mãi hot')),
-                ),
-                const SizedBox(
-                  width: 17,
-                ),
-              ],
-            ),
-          ),
-          // Container(
-          //   padding: const EdgeInsets.only(left: 17),
-          //   child: const Text(
-          //     'Chọn Nhu Cầu',
-          //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          //   ),
-          // ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 15,
-              crossAxisCount: 2,
-              childAspectRatio: 0.4,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
-                        height: 150,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Màn hình LG Gaming 27 inch ',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              '5.890.000 ₫',
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Mua kèm giá treo màn hình giảm thêm đến 100.000đ',
-                              style: TextStyle(fontWeight: FontWeight.w200),
-                            ),
-                            const SizedBox(height: 13),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.red,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Text(
-                                'Giao hàng miễn phí',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: const [
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: _toggleFavorite,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: _isFavorite
-                                        ? const Icon(Icons.favorite,
-                                            color: Colors.red)
-                                        : const Icon(Icons.favorite_border,
-                                            color: Colors.red),
-                                  ),
-                                ),
-                                const Text(
-                                  'Yêu Thích',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //sp2
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
-                        height: 150,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Màn hình LG Gaming 27 inch ',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              '5.890.000 ₫',
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Mua kèm giá treo màn hình giảm thêm đến 100.000đ',
-                              style: TextStyle(fontWeight: FontWeight.w200),
-                            ),
-                            const SizedBox(height: 13),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.red,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Text(
-                                'Giao hàng miễn phí',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: const [
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: _toggleFavorite,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: _isFavorite
-                                        ? const Icon(Icons.favorite,
-                                            color: Colors.red)
-                                        : const Icon(Icons.favorite_border,
-                                            color: Colors.red),
-                                  ),
-                                ),
-                                const Text(
-                                  'Yêu Thích',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //sp3
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
-                        height: 150,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Màn hình LG Gaming 27 inch ',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              '5.890.000 ₫',
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Mua kèm giá treo màn hình giảm thêm đến 100.000đ',
-                              style: TextStyle(fontWeight: FontWeight.w200),
-                            ),
-                            const SizedBox(height: 13),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.red,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Text(
-                                'Giao hàng miễn phí',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: const [
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: _toggleFavorite,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: _isFavorite
-                                        ? const Icon(Icons.favorite,
-                                            color: Colors.red)
-                                        : const Icon(Icons.favorite_border,
-                                            color: Colors.red),
-                                  ),
-                                ),
-                                const Text(
-                                  'Yêu Thích',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //sp4
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        'https://www.lg.com/vn/images/man-hinh-may-tinh/md07527526/gallery/D1.jpg',
-                        height: 150,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Màn hình LG Gaming 27 inch ',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              '5.890.000 ₫',
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Mua kèm giá treo màn hình giảm thêm đến 100.000đ',
-                              style: TextStyle(fontWeight: FontWeight.w200),
-                            ),
-                            const SizedBox(height: 13),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.red,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Text(
-                                'Giao hàng miễn phí',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: const [
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                                Icon(Icons.star, color: Colors.yellow),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: _toggleFavorite,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: _isFavorite
-                                        ? const Icon(Icons.favorite,
-                                            color: Colors.red)
-                                        : const Icon(Icons.favorite_border,
-                                            color: Colors.red),
-                                  ),
-                                ),
-                                const Text(
-                                  'Yêu Thích',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
       ),
     );
   }

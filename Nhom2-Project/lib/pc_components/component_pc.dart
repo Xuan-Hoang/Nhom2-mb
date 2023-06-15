@@ -7,12 +7,12 @@ import 'package:intl/intl.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
-class ComponentServicePage1 extends StatefulWidget {
+class ComponentServicePage extends StatefulWidget {
   @override
-  _ComponentServicePage1State createState() => _ComponentServicePage1State();
+  _ComponentServicePageState createState() => _ComponentServicePageState();
 }
 
-class _ComponentServicePage1State extends State<ComponentServicePage1> {
+class _ComponentServicePageState extends State<ComponentServicePage> {
   final ApiService _apiService = ApiService();
   late Future<List<ProductComponent>> _productsFuture;
 
@@ -29,14 +29,9 @@ class _ComponentServicePage1State extends State<ComponentServicePage1> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final products = snapshot.data!;
-          return Container(
-            height: 650,
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 2,
-              childAspectRatio: 0.4,
-              scrollDirection: Axis.vertical,
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: products
                   .map((product) => ProductCard(
                         product: product,
@@ -62,10 +57,7 @@ class ProductCard extends StatefulWidget {
   final ProductComponent product;
   final Cart cart;
 
-  const ProductCard({
-    required this.product,
-    required this.cart,
-  });
+  const ProductCard({required this.product, required this.cart, });
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -105,7 +97,7 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 5,
+                horizontal: 7,
                 // vertical: 15,
               ),
               child: Container(

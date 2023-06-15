@@ -8,12 +8,12 @@ import 'package:intl/intl.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
-class KeyboardServicePage1 extends StatefulWidget {
+class KeyboardServicePage extends StatefulWidget {
   @override
-  _KeyboardServicePage1State createState() => _KeyboardServicePage1State();
+  _KeyboardServicePageState createState() => _KeyboardServicePageState();
 }
 
-class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
+class _KeyboardServicePageState extends State<KeyboardServicePage> {
   final ApiService _apiService = ApiService();
   late Future<List<ProductKeyboard>> _productsFuture;
 
@@ -30,14 +30,9 @@ class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final products = snapshot.data!;
-          return Container(
-            height: 650,
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 2,
-              childAspectRatio: 0.4,
-              scrollDirection: Axis.vertical,
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: products
                   .map((product) => ProductCard(
                         product: product,
@@ -106,7 +101,7 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 5,
+                horizontal: 7,
                 // vertical: 15,
               ),
               child: Container(

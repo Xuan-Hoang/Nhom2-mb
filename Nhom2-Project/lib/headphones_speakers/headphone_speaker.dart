@@ -2,30 +2,34 @@ import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
 import 'package:doan/item/cart_item.dart';
 import 'package:doan/item/cart_screen.dart';
+import 'package:doan/product_api/accessories_pc_product_detail.dart';
 import 'package:doan/product_api/comphonent_pc_product_detail.dart';
+import 'package:doan/product_api/headphone_speaker_pc_product_detail.dart';
 import 'package:doan/product_api/keyboard_pc_product_detail.dart';
 import 'package:intl/intl.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
-class KeyboardServicePage1 extends StatefulWidget {
+class HeadphoneSpeakerServicePage1 extends StatefulWidget {
   @override
-  _KeyboardServicePage1State createState() => _KeyboardServicePage1State();
+  _HeadphoneSpeakerServicePage1State createState() =>
+      _HeadphoneSpeakerServicePage1State();
 }
 
-class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
+class _HeadphoneSpeakerServicePage1State
+    extends State<HeadphoneSpeakerServicePage1> {
   final ApiService _apiService = ApiService();
-  late Future<List<ProductKeyboard>> _productsFuture;
+  late Future<List<ProductHeadphoneAndSpeaker>> _productsFuture;
 
   @override
   void initState() {
     super.initState();
-    _productsFuture = _apiService.getProducts5();
+    _productsFuture = _apiService.getProducts4();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ProductKeyboard>>(
+    return FutureBuilder<List<ProductHeadphoneAndSpeaker>>(
       future: _productsFuture,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -60,7 +64,7 @@ class _KeyboardServicePage1State extends State<KeyboardServicePage1> {
 }
 
 class ProductCard extends StatefulWidget {
-  final ProductKeyboard product;
+  final ProductHeadphoneAndSpeaker product;
   final Cart cart;
 
   const ProductCard({
@@ -90,7 +94,7 @@ class _ProductCardState extends State<ProductCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => KeyboardPcProductDetails(
+            builder: (context) => HeadphoneSpeakerPcProductDetails(
               product: widget.product,
               cart: widget.cart,
             ),

@@ -1,15 +1,20 @@
-import 'package:doan/pc_monitor/Screen_PC.dart';
-import 'package:doan/pc_monitor/catelory_monitor.dart';
+// import 'package:doan/pc_monitor/Screen_PC.dart';
+// import 'package:doan/accessories/accessorie_pc.dart';
+import 'package:doan/keyboard/keyboard_pc.dart';
+// import 'package:doan/pc_components/component_pc.dart';
+// import 'package:doan/pc_monitor/catelory_monitor.dart';
+import 'package:doan/pc_monitor/monitor_pc.dart';
 import 'package:doan/pc_monitor/screen_manufacturer.dart';
+// import 'package:doan/product_api/keyboard_pc_product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:doan/catelory/catelory.dart';
 import 'package:doan/drawer/drawer.dart';
 import 'package:doan/header/header.dart';
 import 'package:doan/keyboard/Keyboard_manufacturer.dart';
-import 'package:doan/mouse/Mouse_PC.dart';
+import 'package:doan/mouse/mouse_pc.dart';
 import 'package:doan/mouse/mouse_manufacturer.dart';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -73,6 +78,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const HangBanPhim(),
+          KeyboardServicePage()
         ],
       ),
     );
