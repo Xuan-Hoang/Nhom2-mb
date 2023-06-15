@@ -1,5 +1,7 @@
 import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
+import 'package:doan/item/cart_item.dart';
+import 'package:doan/item/cart_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:doan/product_api/produc_detail.dart';
 import 'package:doan/product_api/product.dart';
@@ -29,27 +31,21 @@ class _MouseServicePageState extends State<MouseServicePage> {
           final products = snapshot.data!;
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 5,
-              ),
-              child: Row(
-                children: products
-                    .map((product) => ProductCard(
-                          product: product,
-                          cart: Cart(),
-                        ))
-                    .toList(),
-              ),
+            child: Row(
+              children: products
+                  .map((product) => ProductCard(
+                        product: product,
+                        cart: Cart(),
+                      ))
+                  .toList(),
             ),
           );
         } else if (snapshot.hasError) {
-          return const Center(
+          return Center(
             child: Text('Failed to load products'),
           );
         }
-        return const Center(
+        return Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -93,10 +89,10 @@ class _ProductCardState extends State<ProductCard> {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 7),
+        padding: const EdgeInsets.all(8),
         child: Container(
-          width: 170,
-          height: 400,
+          width: 180,
+          height: 330,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -109,104 +105,107 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                InkWell(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Image.network(
-                      widget.product.image,
-                      height: 130,
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Expanded(
+                child: Image.network(
+                  widget.product.image,
+                  width: double.infinity,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  ' ${widget.product.name}',
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    ' ${widget.product.name}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '${widget.product.price} ₫',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.red,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Text(
-                            'Giao hàng miễn phí',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ]),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: const [
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: toggleFavorite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      'Yêu Thích',
-                      style: TextStyle(
-                        fontSize: 14,
+              ),
+              const SizedBox(height: 4),
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: Column(children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '${widget.product.price} ₫',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.red,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Mua kèm giá treo màn hình giảm thêm đến 100.000đ',
+                    style: TextStyle(fontWeight: FontWeight.w200),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 35,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.red,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      child: const Text(
+                        'Giao hàng miễn phí',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: const [
+                  Icon(Icons.star, color: Colors.yellow),
+                  Icon(Icons.star, color: Colors.yellow),
+                  Icon(Icons.star, color: Colors.yellow),
+                  Icon(Icons.star, color: Colors.yellow),
+                  Icon(Icons.star, color: Colors.yellow),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: toggleFavorite,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    'Yêu Thích',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -344,28 +343,29 @@ class ProductDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.add_shopping_cart),
-                        label: Text('Add to Cart'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        onPressed: () {
+                          final cartItem = CartItem(
+                            id: product.id,
+                            productName: product.name,
+                            productPrice: product.price,
+                            quantity: 1,
+                          );
+                          cart.addCartItem(cartItem);
+                        },
+                        icon: const Icon(Icons.shopping_cart),
+                        label: const Text('Thêm vào giỏ hàng'),
                       ),
                       ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.shopping_bag),
-                        label: Text('Buy Now'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CartPage(cart: cart),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.shopping_basket),
+                        label: const Text('Xem giỏ hàng'),
                       ),
                     ],
                   ),
