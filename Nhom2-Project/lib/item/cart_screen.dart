@@ -1,145 +1,174 @@
-// import 'package:doan/product_api/cart_item.dart';
-// import 'package:doan/product_api/cartbloc.dart';
-// import 'package:flutter/material.dart';
-
-// class CartScreen extends StatelessWidget {
-//   final CartBloc _cartBloc = CartBloc();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Cart')),
-//       body: StreamBuilder<Cart>(
-//         stream: _cartBloc.cartStream,
-//         builder: (context, snapshot) {
-//           if (!snapshot.hasData) {
-//             return const Center(child: CircularProgressIndicator());
-//           }
-//           final cart = snapshot.data!;
-//           if (cart.itemCount == 0) {
-//             return Center(child: Text('Your cart is empty'));
-//           } else {
-//             return ListView.builder(
-//               itemCount: cart.items.length,
-//               itemBuilder: (context, index) {
-//                 final cartItem = cart.items[index];
-//                 return ListTile(
-//                   leading: Image.network(cartItem.product.imageUrl),
-//                   title: Text(cartItem.product.name),
-//                   subtitle: Text('\$${cartItem.product.price}'),
-//                   trailing: Row(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       IconButton(
-//                         icon: Icon(Icons.remove),
-//                         onPressed: () => _cartBloc.updateCartItemQuantity(
-//                             cartItem.product, cartItem.quantity - 1),
-//                       ),
-//                       Text('${cartItem.quantity}'),
-//                       IconButton(
-//                         icon: Icon(Icons.add),
-//                         onPressed: () => _cartBloc.updateCartItemQuantity(
-//                             cartItem.product, cartItem.quantity + 1),
-//                       ),
-//                       IconButton(
-//                         icon: Icon(Icons.delete),
-//                         onPressed: () =>
-//                             _cartBloc.removeCartItem(cartItem.product),
-//                       ),
-//                     ],
-//                   ),
-//                 );
-//               },
-//             );
-//           }
-//         },
-//       ),
-//       bottomNavigationBar: StreamBuilder<Cart>(
-//         stream: _cartBloc.cartStream,
-//         builder: (context, snapshot) {
-//           if (!snapshot.hasData) {
-//             return const SizedBox();
-//           }
-//           final cart = snapshot.data!;
-//           return Container(
-//             height: kToolbarHeight,
-//             padding: EdgeInsets.symmetric(horizontal: 16),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Text('Total: \$${cart.total}'),
-//                 ElevatedButton(
-//                   child: Text('Checkout'),
-//                   onPressed: () {
-//                     // TODO: Thực hiện thanh toán
-//                     _cartBloc.clearCart();
-//                     Navigator.pop(context);
-//                   },
-//                 ),
-//               ],
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-import 'package:doan/item/cart.dart';
-
+import 'package:doan/item/Checkout.dart';
 import 'package:flutter/material.dart';
+import 'package:doan/item/cart.dart';
+import 'package:doan/item/cart_item.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   final Cart cart;
 
-  CartPage({required this.cart});
+  const CartPage({required this.cart});
+
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  List<CartItem> cartItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCartItems();
+  }
+
+  Future<void> fetchCartItems() async {
+    try {
+      final items = await widget.cart.fetchCartItems();
+      setState(() {
+        cartItems = items;
+      });
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to fetch cart items: $error'),
+        ),
+      );
+    }
+  }
+
+  Future<void> addCartItem(CartItem cartItem) async {
+    try {
+      await widget.cart.addCartItem(cartItem);
+      await fetchCartItems();
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to add cart item: $error'),
+        ),
+      );
+    }
+  }
+
+  Future<void> updateCartItem(CartItem cartItem) async {
+    try {
+      await widget.cart.updateCartItem(cartItem);
+      await fetchCartItems();
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to update cart item: $error'),
+        ),
+      );
+    }
+  }
+
+  Future<void> removeCartItem(CartItem cartItem) async {
+    try {
+      await widget.cart.removeCartItem(cartItem);
+      await fetchCartItems();
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to remove cart item: $error'),
+        ),
+      );
+    }
+  }
+
+  double calculateTotalPrice() {
+    double totalPrice = 0;
+    for (var cartItem in cartItems) {
+      totalPrice += cartItem.productPrice * cartItem.quantity;
+    }
+    return totalPrice;
+  }
+
+  Future<void> checkout() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckoutPage(
+          cart: Cart(),
+        ),
+      ),
+    );
+  }
+
+  void incrementQuantity(CartItem cartItem) {
+    setState(() {
+      cartItem.quantity++;
+    });
+    updateCartItem(cartItem);
+  }
+
+  void decrementQuantity(CartItem cartItem) {
+    if (cartItem.quantity > 1) {
+      setState(() {
+        cartItem.quantity--;
+      });
+      updateCartItem(cartItem);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: Text('Cart'),
       ),
       body: ListView.builder(
-        itemCount: cart.items.length,
+        itemCount: cartItems.length,
         itemBuilder: (context, index) {
-          final cartItem = cart.items[index];
+          final cartItem = cartItems[index];
           return ListTile(
-            leading: Image.network(cartItem.product.image),
-            title: Text(cartItem.product.name),
-            subtitle:
-                Text('Price: \$${cartItem.product.price.toStringAsFixed(2)}'),
+            title: Text(cartItem.productName),
+            subtitle: Text('\$${cartItem.productPrice.toStringAsFixed(2)}'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.remove),
-                  onPressed: () {
-                    cart.removeFromCart(cartItem);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Product removed from cart'),
-                      ),
-                    );
-                  },
+                  icon: Icon(Icons.remove),
+                  onPressed: () => decrementQuantity(cartItem),
                 ),
-                Text('${cartItem.quantity}'),
+                Text(cartItem.quantity.toString()),
                 IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () {
-                    int newQuantity = cartItem.quantity + 1;
-                    cart.updateQuantity(cartItem, newQuantity);
-                  },
+                  icon: Icon(Icons.add),
+                  onPressed: () => incrementQuantity(cartItem),
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => removeCartItem(cartItem),
                 ),
               ],
             ),
           );
         },
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          'Total Price: \$${cart.getTotalPrice().toStringAsFixed(2)}',
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text(
+                    'Total: \$${calculateTotalPrice().toStringAsFixed(2)}'),
+                trailing: ElevatedButton(
+                  onPressed: checkout,
+                  child: Text('Checkout'),
+                ),
+              ),
+              SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );

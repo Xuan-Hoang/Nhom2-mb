@@ -1,12 +1,14 @@
 import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
-
+import 'package:doan/item/cart_item.dart';
+import 'package:doan/item/cart_screen.dart';
 import 'package:doan/product_api/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
   final Product product;
   final Cart cart;
+
   const ProductDetails({required this.product, required this.cart});
 
   @override
@@ -98,7 +100,7 @@ class ProductDetails extends StatelessWidget {
                     rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Tỉ lệ khung hình	')),
+                          DataCell(Text('Tỉ lệ khung hình')),
                           DataCell(Text(product.ratio)),
                         ],
                       ),
@@ -135,32 +137,28 @@ class ProductDetails extends StatelessWidget {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
-                          cart.addToCart(product);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Product added to cart'),
+                          final cartItem = CartItem(
+                            id: product.id,
+                            productName: product.name,
+                            productPrice: product.price,
+                            quantity: 1,
+                          );
+                          cart.addCartItem(cartItem);
+                        },
+                        icon: const Icon(Icons.shopping_cart),
+                        label: const Text('Thêm vào giỏ hàng'),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CartPage(cart: cart),
                             ),
                           );
                         },
-                        icon: const Icon(Icons.add_shopping_cart),
-                        label: const Text('Add to Cart'),
-                        // style: ElevatedButton.styleFrom(
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(10),
-                        //   ),
-                        // ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.shopping_bag),
-                        label: const Text('Buy Now'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        icon: const Icon(Icons.shopping_basket),
+                        label: const Text('Xem giỏ hàng'),
                       ),
                     ],
                   ),

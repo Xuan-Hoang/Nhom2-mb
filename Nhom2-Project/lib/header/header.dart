@@ -1,4 +1,5 @@
-import 'package:doan/item/Storge.dart';
+import 'package:doan/item/cart.dart';
+import 'package:doan/item/cart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,8 +41,12 @@ class _HeaderState extends State<Header> {
               icon: const Icon(Icons.shopping_cart),
               onPressed: () {
                 // xử lý khi nhấn vào giỏ hàng
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) =>  GioHang()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CartPage(cart: Cart()),
+                  ),
+                );
               },
             ),
           ],

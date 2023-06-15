@@ -25,6 +25,25 @@ class ApiService {
       throw Exception('Failed to load products');
     }
   }
+
+  // Future<void> addToCart(String productName, String productPrice) async {
+  //   // Gửi yêu cầu API để thêm sản phẩm vào giỏ hàng
+  //   // Viết mã ở đây để thực hiện yêu cầu thêm vào API api/cart
+  //   // Với productName và productDetails được truyền vào từ nút "Add to Cart"
+  //   final response = await http.post(
+  //     Uri.parse('https://648aae6f17f1536d65e9737d.mockapi.io/cart/cart'),
+  //     body: {
+  //       'productName': productName,
+  //       'productPrice': productPrice,
+  //     },
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     // Xử lý khi yêu cầu thành công
+  //   } else {
+  //     // Xử lý khi yêu cầu thất bại
+  //   }
+  // }
 }
 
 class Product {
