@@ -40,8 +40,8 @@ class _HeaderState extends State<Header> {
               icon: const Icon(Icons.shopping_cart),
               onPressed: () {
                 // xử lý khi nhấn vào giỏ hàng
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const GioHang()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) =>  GioHang()));
               },
             ),
           ],

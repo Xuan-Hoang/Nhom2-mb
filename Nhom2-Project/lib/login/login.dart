@@ -19,14 +19,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void signInButton() async {
     // show loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
 
     // try sign in
     try {
@@ -35,12 +27,15 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordTextController.text,
       );
       // pop the loading circle
-      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      // pop the loading circle
-      Navigator.pop(context);
-      // WRONG EMAIL
-      showErrorMessage(e.code);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Vui lòng nhập email và mật khẩu'),
+          );
+        },
+      );
     }
   }
 
@@ -129,11 +124,11 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         },
                         child: const Text(
-                          'Quên mật khẩu',
+                          'Quên mật khẩu?',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ),
                       GestureDetector(
@@ -150,7 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Đăng ký',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       )
                     ]),

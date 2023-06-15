@@ -17,16 +17,6 @@ class _RegisterState extends State<Register> {
   final _comfirmPasswordTextController = TextEditingController();
 
   void signUpButton() async {
-    // show loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
     // try sign in
     try {
       if (_passwordTextController.text == _comfirmPasswordTextController.text) {
@@ -35,37 +25,56 @@ class _RegisterState extends State<Register> {
           password: _passwordTextController.text,
         );
       } else {
-        showErrorMessage('Mật khẩu không chính xác');
+        // showErrorMessage('Mật khẩu không chính xác');
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              content: Text('Mật khẩu không chính xác'),
+            );
+          },
+        );
       }
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
-      Navigator.pop(context);
-      // WRONG EMAIL
-      showErrorMessage(e.code);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Vui lòng nhập email và mật khẩu'),
+          );
+        },
+      );
     }
   }
 
-  void showErrorMessage(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Center(
-            child: Text(
-              message,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // void showErrorMessage(String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Center(
+  //           child: Text(
+  //             message,
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'Đăng ký',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -78,7 +87,7 @@ class _RegisterState extends State<Register> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                20, MediaQuery.of(context).size.height * 0.3, 20, 0),
+                20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -30,35 +30,21 @@ class _Drawer_appState extends State<Drawer_app> {
           DrawerHeader(
             decoration: const BoxDecoration(color: Colors.red),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                    child: Column(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.purple,
-                        gradient: LinearGradient(
-                          colors: [Colors.red, Colors.cyan],
-                        ),
-                      ),
-                      child: const Text(
-                        'LURGEAR',
-                        textScaleFactor: 2.5,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      user.email!,
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                    IconButton(
-                        onPressed: signUserOut, icon: const Icon(Icons.logout))
-                  ],
-                )),
+                const CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/cpu.jpg'),
+                  maxRadius: 40,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  user.email!,
+                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                // IconButton(
+                //     onPressed: signUserOut, icon: const Icon(Icons.logout))
               ],
             ),
           ),
@@ -539,64 +525,7 @@ class _Drawer_appState extends State<Drawer_app> {
                   ],
                 ),
               ]),
-          ExpansionTile(
-            leading: const IconTheme(
-              data: IconThemeData(size: 23),
-              child: Icon(Icons.message_outlined),
-            ),
-            title:
-                const Text('Tư vấn mua hàng', style: TextStyle(fontSize: 17)),
-            children: [
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bạn cần mua màn hình ?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.1 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bạn cần mua tai nghe và loa ?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.2 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bạn cần mua chuột ?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.3 được nhấn
-                },
-              ),
-              ListTile(
-                title: Container(
-                  padding: const EdgeInsets.only(left: 60),
-                  child: const Text(
-                    'Bạn cần mua bàn phím ?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  // Xử lý khi mục 1.4 được nhấn
-                },
-              ),
-            ],
-          ),
+
           ListTile(
               leading: const IconTheme(
                 data: IconThemeData(size: 23),
@@ -635,11 +564,37 @@ class _Drawer_appState extends State<Drawer_app> {
                 style: TextStyle(fontSize: 18),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const GioHang()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) =>  GioHang()),
+                // );
               }),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.only(left: 17),
+            child: Row(
+              children: const [
+                Text(
+                  'Cài đặt',
+                  style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          ListTile(
+              leading: const IconTheme(
+                data: IconThemeData(size: 23),
+                child: Icon(Icons.logout_outlined),
+              ),
+              title: const Text(
+                'Đăng xuất',
+                style: TextStyle(fontSize: 18),
+              ),
+              onTap: signUserOut),
         ],
       ),
     );

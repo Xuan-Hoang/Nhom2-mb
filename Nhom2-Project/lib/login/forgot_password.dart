@@ -48,7 +48,15 @@ class _ForgotpasswordState extends State<Forgotpassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'Quên mật khẩu?',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -71,9 +79,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 MyTextField(
                     controller: _emailTextController,
                     hintText: 'Email đăng ký',
@@ -82,12 +88,10 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                       Icons.email_outlined,
                       color: Colors.white70,
                     )),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 MyButton(
-                  text: 'Đặt lại mật khẩu',
                   onTap: passwordReset,
+                  text: 'Đặt lại mật khẩu',
                 )
               ],
             ),
