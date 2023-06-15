@@ -6,7 +6,7 @@ import 'package:doan/item/cart_item.dart';
 class CartPage extends StatefulWidget {
   final Cart cart;
 
-   CartPage({required this.cart});
+  CartPage({required this.cart});
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -130,7 +130,7 @@ class _CartPageState extends State<CartPage> {
           final cartItem = cartItems[index];
           return ListTile(
             title: Text(cartItem.productName),
-            subtitle: Text('\$${cartItem.productPrice.toStringAsFixed(2)}'),
+            subtitle: Text('${cartItem.productPrice.toStringAsFixed(2)} \đ'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -160,7 +160,7 @@ class _CartPageState extends State<CartPage> {
             children: [
               ListTile(
                 title: Text(
-                    'Total: \$${calculateTotalPrice().toStringAsFixed(2)}'),
+                    'Total: ${calculateTotalPrice().toStringAsFixed(2)} \đ'),
                 trailing: ElevatedButton(
                   onPressed: checkout,
                   child: Text('Checkout'),
