@@ -141,7 +141,7 @@ class _ProductCardState extends State<ProductCard> {
                       Container(
                         alignment: Alignment.center,
                         child: Text(
-                          ' ${widget.product.name}',
+                          ' ${formatCurrency.format(widget.product.price)}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

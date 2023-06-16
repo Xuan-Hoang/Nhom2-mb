@@ -43,7 +43,7 @@ class MousePcProductDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${formatCurrency.format(product.price)}',
+                        '${formatCurrency.format(product.price)} \đ',
                         style: const TextStyle(
                           fontSize: 17.5,
                           color: Colors.red,

@@ -1,3 +1,4 @@
+import 'package:doan/accessories/accessorie.dart';
 import 'package:doan/header/header.dart';
 import 'package:doan/item/cart.dart';
 import 'package:doan/item/cart_item.dart';
@@ -15,7 +16,7 @@ class MonitorPcProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const Header(),
+        title: const Header(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -37,12 +38,12 @@ class MonitorPcProductDetails extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                 const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${product.price}',
+                        '${formatCurrency.format(product.price)} \đ',
                         style: const TextStyle(
                           fontSize: 20,
                           color: Colors.red,
@@ -87,7 +88,7 @@ class MonitorPcProductDetails extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                 const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   DataTable(
                     columns: <DataColumn>[
                       const DataColumn(
@@ -100,19 +101,19 @@ class MonitorPcProductDetails extends StatelessWidget {
                     rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                        const  DataCell(Text('Tỉ lệ khung hình')),
+                          const DataCell(Text('Tỉ lệ khung hình')),
                           DataCell(Text(product.ratio)),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                         const DataCell(Text('Tấm Nền')),
+                          const DataCell(Text('Tấm Nền')),
                           DataCell(Text(product.panels)),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                        const  DataCell(Text('Tần số quét')),
+                          const DataCell(Text('Tần số quét')),
                           DataCell(Text(product.hz)),
                         ],
                       ),

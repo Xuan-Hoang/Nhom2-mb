@@ -48,21 +48,6 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  // void showErrorMessage(String message) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: Center(
-  //           child: Text(
-  //             message,
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
